@@ -12,7 +12,9 @@ const Home = () => {
     }
     return <>
         <TopBar title={"Home"} />
-        <TopSection text={"Welcome User!"} showBtn={true} btnTxt={"Manage Beneficiary"} clickHandler={onManageClick} />
+        <div className="container_wrap">
+            <TopSection text={"Welcome User!"} showBtn={true} btnTxt={"Manage Beneficiary"} clickHandler={onManageClick} />
+        </div>
     </>
 }
 
