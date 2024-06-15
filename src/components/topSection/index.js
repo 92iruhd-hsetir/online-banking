@@ -2,15 +2,15 @@ import React from "react";
 
 const TopSection = ({ text, showBtn, btnTxt, clickHandler }) => {
     return <>
-        <div class="section__wrap">
-            <div class="section__container">
-                <div class="section__lhs">
+        <div className="section__wrap">
+            <div className="section__container">
+                <div className="section__lhs">
                     <span>{text}</span>
                 </div>
-                <div class="section__rhs">
+                <div className="section__rhs">
                     {
                         showBtn
-                        ? <button class="green_btn" onClick={clickHandler}>{btnTxt}</button>
+                        ? <button className="green_btn" onClick={clickHandler}>{btnTxt}</button>
                         : null
                     }
                 </div>

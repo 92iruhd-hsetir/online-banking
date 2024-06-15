@@ -43,13 +43,17 @@ const BeneficiaryTable = ({ columns, data }) => {
                         </thead>
                         <tbody>
                             {
-                                data.map(d => {
+                                data.map((d, d_index) => {
                                     return <tr>
                                         {
                                             columns.map(c => {
                                                 if (c.showActions) {
                                                     return <>
-                                                        <td><Actions /></td>
+                                                        <td><Actions user={d} /></td>
+                                                    </>
+                                                } else if (c.key_name == "rno") {
+                                                    return <>
+                                                        <td>{d_index+1}</td>
                                                     </>
                                                 } else if (c.key_name) {
                                                     return <>

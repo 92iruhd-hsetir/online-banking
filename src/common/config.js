@@ -1,5 +1,7 @@
 const config = {};
 config.urlBasePath = `${process.env.PUBLIC_URL}/`;
+// config.apiBasePath = `${config.urlBasePath}apis/`;
+config.apiBasePath = `http://localhost:3001/`;
 config.imageBasePath = `${config.urlBasePath}images/`;
 
 config.pageUrls = {
