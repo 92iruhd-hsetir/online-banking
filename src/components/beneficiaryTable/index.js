@@ -1,7 +1,7 @@
 import React from "react";
 import NoData from "../noData";
 
-const Actions = () => {
+const Actions = ({ user }) => {
     return <>
         <img
             className="actions"
@@ -34,9 +34,7 @@ const BeneficiaryTable = ({ columns, data }) => {
                             <tr>
                                 {
                                     columns.map(c => {
-                                        return <>
-                                            <th>{c.head_title}</th>
-                                        </>
+                                        return <th key={c.key_name}>{c.head_title}</th>
                                     })
                                 }
                             </tr>
@@ -44,21 +42,15 @@ const BeneficiaryTable = ({ columns, data }) => {
                         <tbody>
                             {
                                 data.map((d, d_index) => {
-                                    return <tr>
+                                    return <tr key={d_index}>
                                         {
                                             columns.map(c => {
                                                 if (c.showActions) {
-                                                    return <>
-                                                        <td><Actions user={d} /></td>
-                                                    </>
+                                                    return <td key={`${c.key_name}_d_index`}><Actions user={d} /></td>
                                                 } else if (c.key_name == "rno") {
-                                                    return <>
-                                                        <td>{d_index+1}</td>
-                                                    </>
+                                                    return <td key={`${c.key_name}_d_index`}>{d_index + 1}</td>
                                                 } else if (c.key_name) {
-                                                    return <>
-                                                        <td>{d[c.key_name]}</td>
-                                                    </>
+                                                    return <td key={`${c.key_name}_d_index`}>{d[c.key_name]}</td>
                                                 } else {
                                                     return "-";
                                                 }
