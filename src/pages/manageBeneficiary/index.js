@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import TopBar from "../../components/topBar";
 import TopSection from "../../components/topSection";
 import BeneficiaryTable from "../../components/beneficiaryTable";
 import config from "../../common/config";
+import BeneficiaryForm from "../../components/beneficiaryForm";
 
 const ManageBeneficiary = () => {
+    const [showForm, toggleForm] = useState(false);
     const addBtnClickHandler = () => {
-        console.log("open beneficiary form");
+        toggleForm(true);
     }
     const data = [];
     return <>
@@ -15,6 +17,12 @@ const ManageBeneficiary = () => {
             <TopSection text={"Home / List of beneficiaries"} showBtn={true} btnTxt={"Add Beneficiary"} clickHandler={addBtnClickHandler} />
             <BeneficiaryTable columns={config.beneficiaryColumns} data={data} />
         </div>
+        <BeneficiaryForm
+            showForm={showForm}
+            title={"Add Beneficiary"}
+            closeModal={toggleForm}
+            viewOnly={false}
+        />
     </>
 }
 

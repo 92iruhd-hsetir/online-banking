@@ -10,7 +10,7 @@ const TopSection = ({ text, showBtn, btnTxt, clickHandler }) => {
                 <div className="section__rhs">
                     {
                         showBtn
-                        ? <button className="green_btn" onClick={clickHandler}>{btnTxt}</button>
+                        ? <button className="btn success_btn" onClick={clickHandler}>{btnTxt}</button>
                         : null
                     }
                 </div>

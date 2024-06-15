@@ -3,13 +3,15 @@
     "uid": "47d4f4ea1322f39e",
     "full_name": "Gajendra",
     "address": "Panchal Nagar, Vasai",
+    "country_id": 3,
     "country_name": "India",
     "pincode": "401203"
   },
   {
     "uid": "b5140a86bdd52665",
     "full_name": "Ajay",
-    "address": "src backend",
+    "address": "47 W 13th St, New York, NY 10011, USA",
+    "country_id": 5,
     "country_name": "US",
     "pincode": "401303"
   },
@@ -17,6 +19,7 @@
     "uid": "d7f387e97a2f220c",
     "full_name": "Ritesh",
     "address": "YK Nagar, Virar west",
+    "country_id": 3,
     "country_name": "India",
     "pincode": "401303"
   }

@@ -37,4 +37,31 @@ config.beneficiaryColumns = [
     }
 ]
 
+config.countryOptions = [
+    {
+        id: 0,
+        name: "Select Country"
+    },
+    {
+        id: 1,
+        name: "Australia"
+    },
+    {
+        id: 2,
+        name: "Canada"
+    },
+    {
+        id: 3,
+        name: "India"
+    },
+    {
+        id: 4,
+        name: "SouthAfrica"
+    },
+    {
+        id: 5,
+        name: "USA"
+    }
+]
+
 export default config;
