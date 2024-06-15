@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 const port = process.env.PORT || 3001;
 
-const beneficiaryFile = "public/apis/beneficiaries.json";
+const beneficiaryFile = "apis/beneficiaries.json";
 
 const getContent = (filePath, cb) => {
     fs.readFile(
