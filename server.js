@@ -13,23 +13,31 @@ const port = process.env.PORT || 3001;
 const beneficiaryFile = "public/apis/beneficiaries.json";
 
 const getContent = (filePath, cb) => {
-    fs.readFile(filePath, "utf-8", function (file_err, file_data) {
-        if (file_err) {
-            cb({ success: false, data: null });
-        } else {
-            cb({ success: true, data: file_data });
+    fs.readFile(
+        filePath,
+        "utf-8",
+        function (file_err, file_data) {
+            if (file_err) {
+                cb({ success: false, data: null });
+            } else {
+                cb({ success: true, data: file_data });
+            }
         }
-    })
+    )
 }
 
 const saveContent = (filePath, content, cb) => {
-    fs.writeFile(filePath, content, function (err) {
-        if (err) {
-            cb({ success: false, data: null });
-        } else {
-            cb({ success: true, data: content });
+    fs.writeFile(
+        filePath,
+        JSON.stringify(content, null, 2), /* This syntax will write JSON in pretty format */
+        function (err) {
+            if (err) {
+                cb({ success: false, data: null });
+            } else {
+                cb({ success: true, data: content });
+            }
         }
-    });
+    );
 }
 
 const generateUid = (existing) => {
@@ -83,7 +91,7 @@ app.post('/beneficiary/update', (req, res) => {
                 if (resp.success) {
                     let list = JSON.parse(resp.data);
                     let { isNew, updatedList } = updateList(list, req.body);
-                    saveContent(filePath, JSON.stringify(updatedList), (saveResp) => {
+                    saveContent(filePath, updatedList, (saveResp) => {
                         if (saveResp.success) {
                             res.json({ success: saveResp.success, message: (isNew ? "Beneficiary Added successfully." : "Beneficiary Updated successfully.") });
                         } else {
@@ -113,7 +121,7 @@ app.post("/beneficiary/delete", (req, res) => {
                 res.json({ success: false, message: "User not available in the system." });
             } else {
                 const newList = list.filter(u => u.uid !== req.body.uid);
-                saveContent(filePath, JSON.stringify(newList), (saveResp) => {
+                saveContent(filePath, newList, (saveResp) => {
                     if (saveResp.success) {
                         res.json({ success: saveResp.success, message: "User deleted successfully." });
                     } else {
