@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "list": [
+    {
+      "uid": "47d4f4ea1322f39e",
+      "full_name": "Gajendraffffffffff",
+      "address": "Panchal Nagar, Vasai",
+      "country_id": 3,
+      "country_name": "India",
+      "pincode": "401203"
+    },
+    {
+      "uid": "b5140a86bdd52665",
+      "full_name": "Ajayfffffffffffff",
+      "address": "47 W 13th St, New York, NY 10011, USA",
+      "country_id": 5,
+      "country_name": "US",
+      "pincode": "401303"
+    }
+  ]
+}
