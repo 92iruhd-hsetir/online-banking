@@ -6,6 +6,7 @@ import BeneficiaryTable from "../../components/beneficiaryTable";
 import config from "../../common/config";
 import { useGetBeneficiaryListQuery } from "../../redux/services/beneficiary";
 import { setBeneficiaryList, setFormDetails, setIsFormOpen } from "../../redux/features/beneficiary";
+import Loader from "../../components/loader";
 
 const ManageBeneficiary = () => {
     const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const ManageBeneficiary = () => {
     const {
         data: beneResp,
         // error: beneError,
-        // isLoading: isBeneLoading
+        isLoading: isBeneLoading
     } = useGetBeneficiaryListQuery();
 
     useEffect(() => {
@@ -30,10 +31,14 @@ const ManageBeneficiary = () => {
 
     return <>
         <TopBar title={"Manage Beneficiary"} />
-        <div className="container_wrap">
-            <TopSection text={"Home / List of beneficiaries"} showBtn={true} btnTxt={"Add Beneficiary"} clickHandler={addBtnClickHandler} />
-            <BeneficiaryTable columns={config.beneficiaryColumns} data={beneficiaryList} />
-        </div>
+        {
+            isBeneLoading
+                ? <Loader />
+                : <div className="container_wrap">
+                    <TopSection text={"Home / List of beneficiaries"} showBtn={true} btnTxt={"Add Beneficiary"} clickHandler={addBtnClickHandler} />
+                    <BeneficiaryTable columns={config.beneficiaryColumns} data={beneficiaryList} />
+                </div>
+        }
     </>
 }
 
