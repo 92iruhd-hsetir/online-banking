@@ -14,21 +14,5 @@
     "country_id": 5,
     "country_name": "US",
     "pincode": "401303"
-  },
-  {
-    "uid": "d7f387e97a2f220c",
-    "full_name": "Ritesh",
-    "address": "YK Nagar, Virar west",
-    "country_id": 3,
-    "country_name": "India",
-    "pincode": "401303"
-  },
-  {
-    "uid": "3959c88f87dbc22d",
-    "full_name": "hemant",
-    "address": "no address",
-    "country_id": 3,
-    "country_name": "India",
-    "pincode": "401303"
   }
 ]
