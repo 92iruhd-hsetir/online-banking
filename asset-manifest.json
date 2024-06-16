@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/static/js/main.3633a6bd.js",
-    "home.js": "/static/js/home.08e7fd4f.chunk.js",
-    "manageBeneficiary.js": "/static/js/manageBeneficiary.7e09f9cf.chunk.js",
-    "index.html": "/index.html",
-    "main.3633a6bd.js.map": "/static/js/main.3633a6bd.js.map",
-    "home.08e7fd4f.chunk.js.map": "/static/js/home.08e7fd4f.chunk.js.map",
-    "manageBeneficiary.7e09f9cf.chunk.js.map": "/static/js/manageBeneficiary.7e09f9cf.chunk.js.map"
+    "main.js": "/online-banking/static/js/main.d529bb5e.js",
+    "home.js": "/online-banking/static/js/home.08e7fd4f.chunk.js",
+    "manageBeneficiary.js": "/online-banking/static/js/manageBeneficiary.7e09f9cf.chunk.js",
+    "index.html": "/online-banking/index.html",
+    "main.d529bb5e.js.map": "/online-banking/static/js/main.d529bb5e.js.map",
+    "home.08e7fd4f.chunk.js.map": "/online-banking/static/js/home.08e7fd4f.chunk.js.map",
+    "manageBeneficiary.7e09f9cf.chunk.js.map": "/online-banking/static/js/manageBeneficiary.7e09f9cf.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.3633a6bd.js"
+    "static/js/main.d529bb5e.js"
   ]
 }
