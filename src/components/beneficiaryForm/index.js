@@ -1,8 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import config from "../../common/config";
+import { setFormDetails, setIsFormOpen, setToastDetails } from "../../redux/features/beneficiary";
+import { useAddBeneficiaryMutation, useUpdateBeneficiaryMutation } from "../../redux/services/beneficiary";
 
-const BeneficiaryForm = ({ viewOnly, title, showForm, closeModal, user }) => {
+const BeneficiaryForm = () => {
+    const dispatch = useDispatch();
+    const [addBeneficiary] = useAddBeneficiaryMutation();
+    const [updateBeneficiary] = useUpdateBeneficiaryMutation();
+    const isFormOpen = useSelector((state) => state.beneficiary.isFormOpen);
+    const user = useSelector((state) => state.beneficiary.selectedUser);
+    const formDetails = useSelector((state) => state.beneficiary.formDetails);
+
+    const { type = null, viewOnly = true } = formDetails || {};
     let { uid = "", full_name = "", address = "", country_id = 0, country_name = "", pincode = "" } = user || {};
+    const title = type ? config.formTitles[type] : "";
+
     const [details, setDetails] = useState({
         uid,
         full_name,
@@ -13,7 +26,7 @@ const BeneficiaryForm = ({ viewOnly, title, showForm, closeModal, user }) => {
     })
     const [isSaveEnabled, toggleEnableSave] = useState(false);
     const closePopup = () => {
-        closeModal(false);
+        dispatch(setIsFormOpen(false));
     }
 
     const updateName = (e) => {
@@ -31,7 +44,7 @@ const BeneficiaryForm = ({ viewOnly, title, showForm, closeModal, user }) => {
     }
 
     const updateCountry = (e) => {
-        let newCountry = config.countryOptions.find(c => c.id == e.target.value);
+        let newCountry = config.countryOptions.find(c => +c.id === +e.target.value);
         const newDetails = { ...details, country_id: newCountry.id, country_name: newCountry.name };
         setDetails(newDetails);
         toggleEnableSave(checkEdits(newDetails));
@@ -46,19 +59,19 @@ const BeneficiaryForm = ({ viewOnly, title, showForm, closeModal, user }) => {
 
     const validateFields = (newDetails) => {
         return !(
-            newDetails.full_name == ""
-            || newDetails.address == ""
-            || newDetails.country_id == 0
-            || newDetails.pincode == ""
+            newDetails.full_name === ""
+            || newDetails.address === ""
+            || newDetails.country_id === 0
+            || newDetails.pincode === ""
         )
     }
 
     const checkEdits = (newDetails) => {
         return (
-            newDetails.full_name != full_name
-            || newDetails.address != address
-            || newDetails.country_id != country_id
-            || newDetails.pincode != pincode
+            newDetails.full_name !== full_name
+            || newDetails.address !== address
+            || newDetails.country_id !== country_id
+            || newDetails.pincode !== pincode
         ) && validateFields(newDetails)
     }
 
@@ -66,8 +79,44 @@ const BeneficiaryForm = ({ viewOnly, title, showForm, closeModal, user }) => {
         toggleEnableSave(checkEdits(details));
     }, []);
 
+    const saveNewBeneficiary = async (payload) => {
+        const resp = await addBeneficiary(payload);
+        const { message, success } = resp?.data || {};
+        // dispatch message here for toast
+        if (success) {
+            dispatch(setToastDetails({ type: config.toastTypes.success, message: message, showToast: true }));
+            dispatch(setFormDetails({ type: null, selectedUser: null, viewOnly: false }));
+            dispatch(setIsFormOpen(false));
+        } else {
+            dispatch(setToastDetails({ type: config.toastTypes.danger, message: message, showToast: true }));
+        }
+    }
+
+    const saveExistingBeneficiary = async (payload) => {
+        const resp = await updateBeneficiary(payload);
+        const { message, success } = resp?.data || {};
+        // dispatch message here for toast
+        if (success) {
+            dispatch(setToastDetails({ type: config.toastTypes.success, message: message, showToast: true }));
+            dispatch(setFormDetails({ type: null, selectedUser: null, viewOnly: false }));
+            dispatch(setIsFormOpen(false));
+        } else {
+            dispatch(setToastDetails({ type: config.toastTypes.danger, message: message, showToast: true }));
+        }
+    }
+
+    const submitHandler = () => {
+        const payload = { ...details };
+        if (type === config.formActions.add) {
+            delete payload.uid;
+            saveNewBeneficiary(payload);
+        } else if (type === config.formActions.edit) {
+            saveExistingBeneficiary(payload);
+        }
+    }
+
     return <>
-        <div className={`modal ${showForm ? "" : "hidden"}`}>
+        <div className={`modal ${isFormOpen ? "" : "hidden"}`}>
             <div className="modal-content">
                 <div className="modal-header">
                     <span className="close" onClick={closePopup}>&times;</span>
@@ -119,7 +168,7 @@ const BeneficiaryForm = ({ viewOnly, title, showForm, closeModal, user }) => {
                     viewOnly
                         ? null
                         : <div className="modal-footer">
-                            <button className="btn confirm_btn" disabled={!isSaveEnabled}>Save</button>
+                            <button className="btn confirm_btn" disabled={!isSaveEnabled} onClick={submitHandler}>Save</button>
                         </div>
                 }
             </div>

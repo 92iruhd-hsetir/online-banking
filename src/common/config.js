@@ -64,4 +64,34 @@ config.countryOptions = [
     }
 ]
 
+config.formActions = {
+    "add": 1,
+    "view": 2,
+    "edit": 3,
+    "delete": 4
+}
+
+config.formTitles = {
+    [config.formActions.add]: "Add Beneficiary",
+    [config.formActions.view]: "View Beneficiary",
+    [config.formActions.edit]: "Edit Beneficiary",
+    [config.formActions.delete]: "delete Beneficiary"
+};
+
+config.toastTimeout = 3000;
+
+config.toastTypes = {
+    "success": 1,
+    "warning": 2,
+    "info": 3,
+    "danger": 4
+}
+
+config.toastClass = {
+    [config.toastTypes.success]: "success",
+    [config.toastTypes.warning]: "warning",
+    [config.toastTypes.info]: "info",
+    [config.toastTypes.danger]: "danger",
+}
+
 export default config;

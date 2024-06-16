@@ -1,13 +1,22 @@
 import React from "react";
 import NoData from "../noData";
+import { useDispatch } from "react-redux";
+import config from "../../common/config";
+import { setIsFormOpen, setFormDetails } from "../../redux/features/beneficiary";
 
 const Actions = ({ user }) => {
+    const dispatch = useDispatch();
+
     return <>
         <img
             className="actions"
             src="/images/actions/edit.png"
             alt="edit"
             loading="lazy"
+            onClick={() => {
+                dispatch(setFormDetails({ type: config.formActions.edit, selectedUser: user, viewOnly: false }));
+                dispatch(setIsFormOpen(true));
+            }}
         />
         <img
             className="actions"
@@ -20,6 +29,10 @@ const Actions = ({ user }) => {
             src="/images/actions/view.png"
             alt="view"
             loading="lazy"
+            onClick={() => {
+                dispatch(setFormDetails({ type: config.formActions.view, selectedUser: user, viewOnly: true }));
+                dispatch(setIsFormOpen(true));
+            }}
         />
     </>
 }
@@ -47,7 +60,7 @@ const BeneficiaryTable = ({ columns, data }) => {
                                             columns.map(c => {
                                                 if (c.showActions) {
                                                     return <td key={`${c.key_name}_d_index`}><Actions user={d} /></td>
-                                                } else if (c.key_name == "rno") {
+                                                } else if (c.key_name === "rno") {
                                                     return <td key={`${c.key_name}_d_index`}>{d_index + 1}</td>
                                                 } else if (c.key_name) {
                                                     return <td key={`${c.key_name}_d_index`}>{d[c.key_name]}</td>
