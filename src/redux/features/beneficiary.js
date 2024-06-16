@@ -7,7 +7,8 @@ const beneficiarySlice = createSlice({
         list: [],
         formDetails: null,
         isFormOpen: false,
-        toastDetails: null
+        toastDetails: null,
+        deleteDetails: null
     },
     reducers: {
         setBeneficiaryList(state, action) {
@@ -23,17 +24,21 @@ const beneficiarySlice = createSlice({
         setToastDetails(state, action) {
             return { ...state, toastDetails: action.payload };
         },
+        setDeleteDetails(state, action) {
+            return { ...state, deleteDetails: action.payload };
+        },
         resetData(state, action) {
             return {
                 selectedUser: null,
                 list: [],
                 formDetails: null,
                 isFormOpen: false,
-                toastDetails: null
+                toastDetails: null,
+                deleteDetails: null
             };
         }
     }
 })
 
-export const { setBeneficiaryList, setIsFormOpen, setFormDetails, setToastDetails, resetData } = beneficiarySlice.actions;
+export const { setBeneficiaryList, setIsFormOpen, setFormDetails, setToastDetails, setDeleteDetails, resetData } = beneficiarySlice.actions;
 export default beneficiarySlice.reducer;

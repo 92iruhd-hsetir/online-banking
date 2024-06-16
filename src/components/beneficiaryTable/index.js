@@ -1,8 +1,10 @@
 import React from "react";
 import NoData from "../noData";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import config from "../../common/config";
-import { setIsFormOpen, setFormDetails } from "../../redux/features/beneficiary";
+import { setIsFormOpen, setFormDetails, setDeleteDetails, setToastDetails } from "../../redux/features/beneficiary";
+import DeleteUserPopup from "../deleteUserPopup";
+import { useDeleteBeneficiaryMutation } from "../../redux/services/beneficiary";
 
 const Actions = ({ user }) => {
     const dispatch = useDispatch();
@@ -23,6 +25,9 @@ const Actions = ({ user }) => {
             src="/images/actions/delete.png"
             alt="delete"
             loading="lazy"
+            onClick={() => {
+                dispatch(setDeleteDetails({ selectedUser: user, showPopup: true }));
+            }}
         />
         <img
             className="actions"
@@ -38,6 +43,22 @@ const Actions = ({ user }) => {
 }
 
 const BeneficiaryTable = ({ columns, data }) => {
+    const dispatch = useDispatch();
+    const deleteDetails = useSelector((state) => state.beneficiary.deleteDetails);
+    const [deleteBeneficiary] = useDeleteBeneficiaryMutation();
+
+    const deleteUser = async (payload) => {
+        const resp = await deleteBeneficiary(payload);
+        const { message, success } = resp?.data || {};
+        // dispatch message here for toast
+        if (success) {
+            dispatch(setToastDetails({ type: config.toastTypes.success, message: message, showToast: true }));
+            dispatch(setDeleteDetails(null));
+        } else {
+            dispatch(setToastDetails({ type: config.toastTypes.danger, message: message, showToast: true }));
+        }
+    }
+
     return <>
         <div className="table_wrap">
             {
@@ -77,6 +98,11 @@ const BeneficiaryTable = ({ columns, data }) => {
                     : <NoData message={"No Beneficiary Available"} />
             }
         </div>
+        {
+            deleteDetails && deleteDetails.showPopup
+                ? <DeleteUserPopup user={deleteDetails.selectedUser} confirmHandler={() => deleteUser(deleteDetails.selectedUser)} />
+                : null
+        }
     </>
 }
 

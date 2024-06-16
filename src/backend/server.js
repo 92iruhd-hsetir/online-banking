@@ -112,27 +112,28 @@ app.post("/beneficiary/delete", (req, res) => {
     const filePath = beneficiaryFile;
     if (!req?.body?.uid) {
         res.json({ success: false, message: "Provide the 'uid' of benificary" });
-    }
-    getContent(filePath, (resp) => {
-        if (resp.success) {
-            let list = JSON.parse(resp.data);
-            const user = list.find(u => u.uid === req.body.uid);
-            if (!user) {
-                res.json({ success: false, message: "User not available in the system." });
+    } else {
+        getContent(filePath, (resp) => {
+            if (resp.success) {
+                let list = JSON.parse(resp.data);
+                const user = list.find(u => u.uid === req.body.uid);
+                if (!user) {
+                    res.json({ success: false, message: "User not available in the system." });
+                } else {
+                    const newList = list.filter(u => u.uid !== req.body.uid);
+                    saveContent(filePath, newList, (saveResp) => {
+                        if (saveResp.success) {
+                            res.json({ success: saveResp.success, message: "User deleted successfully." });
+                        } else {
+                            res.json({ success: false, message: "Failed to delete user." });
+                        }
+                    })
+                }
             } else {
-                const newList = list.filter(u => u.uid !== req.body.uid);
-                saveContent(filePath, newList, (saveResp) => {
-                    if (saveResp.success) {
-                        res.json({ success: saveResp.success, message: "User deleted successfully." });
-                    } else {
-                        res.json({ success: false, message: "Failed to delete user." });
-                    }
-                })
+                res.json({ success: resp.success, message: "Can not delete user." });
             }
-        } else {
-            res.json({ success: resp.success, message: "Can not delete user." });
-        }
-    });
+        });
+    }
 })
 
 app.get('/beneficiary/list', (req, res) => {
