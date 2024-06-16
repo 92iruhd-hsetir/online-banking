@@ -19,7 +19,9 @@ export const beneficiaryServices = createApi({
                 method: 'POST',
                 body: user
             }),
-            invalidatesTags: ['beneList']
+            invalidatesTags: (result, error, id) => {
+                return (result && result.success) ? ['beneList'] : []
+            },
         }),
         updateBeneficiary: builder.mutation({
             query: (user) => ({
@@ -27,7 +29,9 @@ export const beneficiaryServices = createApi({
                 method: 'POST',
                 body: user
             }),
-            invalidatesTags: ['beneList']
+            invalidatesTags: (result, error, id) => {
+                return (result && result.success) ? ['beneList'] : []
+            },
         }),
         deleteBeneficiary: builder.mutation({
             query: (user) => ({
@@ -35,7 +39,9 @@ export const beneficiaryServices = createApi({
                 method: 'POST',
                 body: user
             }),
-            invalidatesTags: ['beneList']
+            invalidatesTags: (result, error, id) => {
+                return (result && result.success) ? ['beneList'] : []
+            },
         })
     })
 

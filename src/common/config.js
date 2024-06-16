@@ -56,7 +56,7 @@ config.countryOptions = [
     },
     {
         id: 4,
-        name: "SouthAfrica"
+        name: "South Africa"
     },
     {
         id: 5,
