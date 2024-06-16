@@ -12,7 +12,7 @@ const Actions = ({ user }) => {
     return <>
         <img
             className="actions"
-            src="/images/actions/edit.png"
+            src={`${config.imageBasePath}actions/edit.png`}
             alt="edit"
             loading="lazy"
             onClick={() => {
@@ -22,7 +22,7 @@ const Actions = ({ user }) => {
         />
         <img
             className="actions"
-            src="/images/actions/delete.png"
+            src={`${config.imageBasePath}actions/delete.png`}
             alt="delete"
             loading="lazy"
             onClick={() => {
@@ -31,7 +31,7 @@ const Actions = ({ user }) => {
         />
         <img
             className="actions"
-            src="/images/actions/view.png"
+            src={`${config.imageBasePath}actions/view.png`}
             alt="view"
             loading="lazy"
             onClick={() => {
